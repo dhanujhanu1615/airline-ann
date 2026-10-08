@@ -72,7 +72,7 @@ st.set_page_config(
 )
 
 
-#Step 6: Applying Premium Application Styling
+#Step 6: Applying Application Styling
 
 st.markdown(
     """
@@ -81,21 +81,19 @@ st.markdown(
     /* Main application */
 
     .main .block-container {
-        padding-top: 2rem;
+        padding-top: 1.5rem;
         padding-bottom: 2rem;
-        padding-left: 3rem;
-        padding-right: 3rem;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
     }
 
 
-    /* Sidebar width */
+    /* Sidebar */
 
     section[data-testid="stSidebar"] {
         width: 340px !important;
     }
 
-
-    /* Sidebar content */
 
     section[data-testid="stSidebar"] .block-container {
         padding-top: 2rem;
@@ -104,12 +102,9 @@ st.markdown(
     }
 
 
-    /* Sidebar headings */
-
     section[data-testid="stSidebar"] h2 {
         font-size: 1.65rem !important;
         font-weight: 800 !important;
-        margin-bottom: 0.25rem !important;
     }
 
 
@@ -120,19 +115,14 @@ st.markdown(
     }
 
 
-    /* Sidebar text */
-
     section[data-testid="stSidebar"] p {
         font-size: 0.95rem !important;
     }
 
 
-    /* Navigation radio labels */
-
     section[data-testid="stSidebar"]
     div[data-testid="stRadio"]
     label {
-
         font-size: 1.08rem !important;
         font-weight: 700 !important;
         line-height: 1.45 !important;
@@ -141,38 +131,25 @@ st.markdown(
     }
 
 
-    /* Sidebar radio spacing */
-
-    section[data-testid="stSidebar"]
-    div[data-testid="stRadio"] > div {
-
-        gap: 0.25rem !important;
-    }
-
-
-    /* Sidebar divider */
-
     section[data-testid="stSidebar"] hr {
-
         margin-top: 1.2rem !important;
         margin-bottom: 1.2rem !important;
     }
 
 
-    /* Metric cards */
+    /* Streamlit metrics */
 
     div[data-testid="stMetric"] {
-
         border: 1px solid rgba(128, 128, 128, 0.20);
         border-radius: 14px;
         padding: 1rem;
+        background: rgba(128, 128, 128, 0.03);
     }
 
 
     /* Buttons */
 
     div.stButton > button {
-
         min-height: 3rem;
         font-size: 1rem;
         font-weight: 700;
@@ -183,7 +160,6 @@ st.markdown(
     /* Tabs */
 
     button[data-baseweb="tab"] {
-
         font-weight: 700;
     }
 
@@ -191,7 +167,6 @@ st.markdown(
     /* Dataframes */
 
     div[data-testid="stDataFrame"] {
-
         border-radius: 12px;
     }
 
@@ -201,25 +176,19 @@ st.markdown(
 )
 
 
-#Step 7: Creating Safe CSV Loader
+#Step 7: Creating a Safe CSV Loader
 
-def load_csv(
-    path
-):
+def load_csv(path):
 
     try:
 
-        path = Path(
-            path
-        )
+        path = Path(path)
 
         if not path.exists():
 
             return pd.DataFrame()
 
-        return pd.read_csv(
-            path
-        )
+        return pd.read_csv(path)
 
     except Exception:
 
@@ -307,7 +276,7 @@ def load_feature_names():
         return np.array([])
 
 
-#Step 11: Loading All Analysis Results
+#Step 11: Loading Project Analysis Data
 
 @st.cache_data
 def load_project_data():
@@ -315,53 +284,35 @@ def load_project_data():
     return {
 
         "evaluation":
-            load_csv(
-                EVALUATION_PATH
-            ),
+            load_csv(EVALUATION_PATH),
 
         "threshold":
-            load_csv(
-                THRESHOLD_ANALYSIS_PATH
-            ),
+            load_csv(THRESHOLD_ANALYSIS_PATH),
 
         "predictions":
-            load_csv(
-                PREDICTIONS_PATH
-            ),
+            load_csv(PREDICTIONS_PATH),
 
         "optimization":
-            load_csv(
-                OPTIMIZATION_RESULTS_PATH
-            ),
+            load_csv(OPTIMIZATION_RESULTS_PATH),
 
         "baseline":
-            load_csv(
-                BASELINE_VS_OPTIMIZED_PATH
-            ),
+            load_csv(BASELINE_VS_OPTIMIZED_PATH),
 
         "importance":
-            load_csv(
-                PERMUTATION_IMPORTANCE_PATH
-            ),
+            load_csv(PERMUTATION_IMPORTANCE_PATH),
 
         "top_features":
-            load_csv(
-                TOP_FEATURES_PATH
-            ),
+            load_csv(TOP_FEATURES_PATH),
 
         "explanations":
-            load_csv(
-                PASSENGER_EXPLANATIONS_PATH
-            ),
+            load_csv(PASSENGER_EXPLANATIONS_PATH),
 
         "recommendations":
-            load_csv(
-                BUSINESS_RECOMMENDATIONS_PATH
-            )
+            load_csv(BUSINESS_RECOMMENDATIONS_PATH)
     }
 
 
-#Step 12: Loading the Application Resources
+#Step 12: Loading Application Resources
 
 model = load_model()
 
@@ -372,44 +323,26 @@ feature_names = load_feature_names()
 project_data = load_project_data()
 
 
-evaluation_df = project_data[
-    "evaluation"
-]
+evaluation_df = project_data["evaluation"]
 
-threshold_df = project_data[
-    "threshold"
-]
+threshold_df = project_data["threshold"]
 
-predictions_df = project_data[
-    "predictions"
-]
+predictions_df = project_data["predictions"]
 
-optimization_df = project_data[
-    "optimization"
-]
+optimization_df = project_data["optimization"]
 
-baseline_df = project_data[
-    "baseline"
-]
+baseline_df = project_data["baseline"]
 
-importance_df = project_data[
-    "importance"
-]
+importance_df = project_data["importance"]
 
-top_features_df = project_data[
-    "top_features"
-]
+top_features_df = project_data["top_features"]
 
-explanations_df = project_data[
-    "explanations"
-]
+explanations_df = project_data["explanations"]
 
-recommendations_df = project_data[
-    "recommendations"
-]
+recommendations_df = project_data["recommendations"]
 
 
-#Step 13: Creating the Premium Sidebar
+#Step 13: Creating the Sidebar
 
 with st.sidebar:
 
@@ -465,10 +398,7 @@ with st.sidebar:
 
     st.divider()
 
-    if (
-        model is not None
-        and preprocessor is not None
-    ):
+    if model is not None and preprocessor is not None:
 
         st.success(
             "● AI System Ready"
@@ -485,25 +415,22 @@ with st.sidebar:
     )
 
 
-#Step 14: Dashboard Page
+#Step 14: Executive Dashboard
 
 if page == "🏠  Dashboard":
+
+    #Step 14.1: Dashboard Header
 
     application_header(
         title="AirlineIQ Dashboard",
         subtitle=(
-            "Passenger Satisfaction Intelligence "
-            "powered by Artificial Neural Networks"
+            "Passenger Satisfaction Intelligence • "
+            "Optimized Artificial Neural Network"
         )
     )
 
-    section_header(
-        "Executive Overview",
-        "Model performance and passenger intelligence at a glance."
-    )
 
-
-    #Step 14.1: Extracting Evaluation Metrics
+    #Step 14.2: Extracting Evaluation Metrics
 
     accuracy = None
 
@@ -523,22 +450,14 @@ if page == "🏠  Dashboard":
             column_name = (
                 str(column)
                 .lower()
-                .replace(
-                    " ",
-                    "_"
-                )
-                .replace(
-                    "-",
-                    "_"
-                )
+                .replace(" ", "_")
+                .replace("-", "_")
             )
 
             try:
 
                 value = float(
-                    evaluation_df[
-                        column
-                    ].iloc[0]
+                    evaluation_df[column].iloc[0]
                 )
 
             except Exception:
@@ -546,51 +465,49 @@ if page == "🏠  Dashboard":
                 continue
 
 
-            if (
-                "accuracy"
-                in column_name
-            ):
+            if "accuracy" in column_name:
 
                 accuracy = value
 
             elif (
-                "precision"
-                in column_name
-                and "weighted"
-                not in column_name
+                "precision" in column_name
+                and "weighted" not in column_name
+                and "macro" not in column_name
             ):
 
                 precision = value
 
             elif (
-                "recall"
-                in column_name
-                and "weighted"
-                not in column_name
+                "recall" in column_name
+                and "weighted" not in column_name
+                and "macro" not in column_name
             ):
 
                 recall = value
 
             elif (
-                "f1"
-                in column_name
-                and "weighted"
-                not in column_name
+                "f1" in column_name
+                and "weighted" not in column_name
+                and "macro" not in column_name
             ):
 
                 f1_score = value
 
             elif (
-                "roc"
-                in column_name
-                or "auc"
-                in column_name
+                "roc_auc" in column_name
+                or "roc-auc" in column_name
+                or column_name == "auc"
             ):
 
                 roc_auc = value
 
 
-    #Step 14.2: Displaying Performance KPIs
+    #Step 14.3: Model Performance
+
+    section_header(
+        "Model Performance",
+        "Final performance of the optimized ANN on the test dataset."
+    )
 
     display_kpis(
         accuracy=accuracy,
@@ -601,115 +518,424 @@ if page == "🏠  Dashboard":
     )
 
 
-    st.divider()
+    st.markdown("")
 
 
-    #Step 14.3: Platform Overview
+    #Step 14.4: AI System Overview
 
     section_header(
-        "AirlineIQ Intelligence Platform",
-        "An end-to-end machine learning application."
+        "AI System Overview",
+        "Current status of the AirlineIQ prediction pipeline."
     )
 
-    col1, col2, col3 = st.columns(
-        3
-    )
 
-    with col1:
+    status1, status2, status3, status4 = st.columns(4)
+
+
+    with status1:
 
         st.metric(
-            "ML Problem",
-            "Binary Classification"
+            label="AI Engine",
+            value="Online",
+            delta="Ready"
         )
 
         st.caption(
-            "Passenger satisfaction prediction"
+            "Optimized ANN model available"
         )
 
-    with col2:
+
+    with status2:
 
         st.metric(
-            "AI Model",
-            "Artificial Neural Network"
+            label="Model",
+            value="Optimized ANN"
         )
 
         st.caption(
             "TensorFlow / Keras"
         )
 
-    with col3:
+
+    with status3:
 
         st.metric(
-            "Deployment",
-            "Streamlit"
+            label="Prediction",
+            value="Binary"
         )
 
         st.caption(
-            "Interactive ML application"
+            "Satisfied vs dissatisfied"
+        )
+
+
+    with status4:
+
+        st.metric(
+            label="Threshold",
+            value=f"{PREDICTION_THRESHOLD:.2f}"
+        )
+
+        st.caption(
+            "Classification threshold"
         )
 
 
     st.divider()
 
 
-    #Step 14.4: AI System Health
+    #Step 14.5: Passenger Intelligence
 
     section_header(
-        "AI Engine Health"
+        "Passenger Intelligence",
+        "Understand what AirlineIQ is designed to predict."
     )
 
-    health_col1, health_col2 = st.columns(
-        2
+
+    intelligence1, intelligence2, intelligence3 = st.columns(3)
+
+
+    with intelligence1:
+
+        st.metric(
+            label="ML Problem",
+            value="Binary Classification"
+        )
+
+        st.caption(
+            "Predict passenger satisfaction."
+        )
+
+
+    with intelligence2:
+
+        st.metric(
+            label="Target",
+            value="Passenger Satisfaction"
+        )
+
+        st.caption(
+            "Satisfied vs neutral/dissatisfied."
+        )
+
+
+    with intelligence3:
+
+        st.metric(
+            label="Processed Features",
+            value=len(feature_names)
+        )
+
+        st.caption(
+            "Features entering the ANN."
+        )
+
+
+    st.markdown("")
+
+
+    st.info(
+        """
+        **What AirlineIQ does**
+
+        AirlineIQ combines passenger demographics, travel
+        characteristics, service ratings and flight delays
+        to estimate passenger satisfaction.
+
+        The prediction is then converted into experience
+        insights and actionable recommendations.
+        """
     )
 
-    with health_col1:
+
+    st.divider()
+
+
+    #Step 14.6: AI System Health
+
+    section_header(
+        "AI System Health",
+        "Availability of the production prediction pipeline."
+    )
+
+
+    health1, health2 = st.columns(2)
+
+
+    with health1:
 
         if model is not None:
 
             st.success(
-                "🟢 ANN model loaded successfully."
+                "🟢 Optimized ANN model loaded"
             )
 
         else:
 
             st.error(
-                "🔴 ANN model unavailable."
+                "🔴 Optimized ANN model unavailable"
             )
 
-    with health_col2:
 
         if preprocessor is not None:
 
             st.success(
-                "🟢 Preprocessing pipeline loaded."
+                "🟢 Preprocessing pipeline loaded"
             )
 
         else:
 
             st.error(
-                "🔴 Preprocessing pipeline unavailable."
+                "🔴 Preprocessing pipeline unavailable"
+            )
+
+
+    with health2:
+
+        if len(feature_names) > 0:
+
+            st.success(
+                f"🟢 {len(feature_names)} processed features available"
+            )
+
+        else:
+
+            st.warning(
+                "🟡 Feature metadata unavailable"
+            )
+
+
+        if not evaluation_df.empty:
+
+            st.success(
+                "🟢 Evaluation results available"
+            )
+
+        else:
+
+            st.warning(
+                "🟡 Evaluation results unavailable"
             )
 
 
     st.divider()
 
 
-    #Step 14.5: Business Objective
+    #Step 14.7: Top Passenger Experience Drivers
 
     section_header(
-        "Business Objective"
+        "Top Passenger Experience Drivers",
+        "Features identified by the explainability pipeline."
     )
 
-    st.info(
-        """
-        AirlineIQ predicts whether a passenger is likely to be satisfied
-        using demographic information, travel characteristics, service
-        ratings and flight delay information.
 
-        The prediction is then translated into passenger-level insights
-        and actionable service recommendations.
-        """
+    if not top_features_df.empty:
+
+        display_features = (
+            top_features_df
+            .head(6)
+            .copy()
+        )
+
+        st.dataframe(
+            display_features,
+            use_container_width=True,
+            hide_index=True
+        )
+
+    elif not importance_df.empty:
+
+        display_features = (
+            importance_df
+            .head(6)
+            .copy()
+        )
+
+        st.dataframe(
+            display_features,
+            use_container_width=True,
+            hide_index=True
+        )
+
+    else:
+
+        st.info(
+            "Feature intelligence results are not available yet."
+        )
+
+
+    st.divider()
+
+
+    #Step 14.8: Business Priorities
+
+    section_header(
+        "Business Priorities",
+        "Translate passenger intelligence into practical actions."
     )
+
+
+    if not recommendations_df.empty:
+
+        st.dataframe(
+            recommendations_df.head(6),
+            use_container_width=True,
+            hide_index=True
+        )
+
+    else:
+
+        priority1, priority2, priority3 = st.columns(3)
+
+
+        with priority1:
+
+            st.info(
+                """
+                ### 📶 Digital Experience
+
+                Monitor WiFi, online booking and
+                online boarding experience.
+                """
+            )
+
+
+        with priority2:
+
+            st.info(
+                """
+                ### 🪑 Passenger Comfort
+
+                Monitor seat comfort and
+                onboard service quality.
+                """
+            )
+
+
+        with priority3:
+
+            st.info(
+                """
+                ### ⏱️ Reliability
+
+                Investigate delays that may
+                negatively affect satisfaction.
+                """
+            )
+
+
+    st.divider()
+
+
+    #Step 14.9: AirlineIQ Intelligence Pipeline
+
+    section_header(
+        "AirlineIQ Intelligence Pipeline",
+        "End-to-end machine learning workflow."
+    )
+
+
+    pipeline1, pipeline2, pipeline3 = st.columns(3)
+
+
+    with pipeline1:
+
+        st.metric(
+            "01",
+            "Passenger Data"
+        )
+
+        st.caption(
+            "Demographics • Travel • Services • Delays"
+        )
+
+        st.metric(
+            "02",
+            "Preprocessing"
+        )
+
+        st.caption(
+            "Encoding • Imputation • Scaling"
+        )
+
+
+    with pipeline2:
+
+        st.metric(
+            "03",
+            "Optimized ANN"
+        )
+
+        st.caption(
+            "Deep learning passenger classifier"
+        )
+
+        st.metric(
+            "04",
+            "Prediction"
+        )
+
+        st.caption(
+            "Satisfied vs neutral/dissatisfied"
+        )
+
+
+    with pipeline3:
+
+        st.metric(
+            "05",
+            "Explainability"
+        )
+
+        st.caption(
+            "Identify important passenger drivers"
+        )
+
+        st.metric(
+            "06",
+            "Business Insight"
+        )
+
+        st.caption(
+            "Convert predictions into actions"
+        )
+
+
+    st.divider()
+
+
+    #Step 14.10: Production Status
+
+    left_status, right_status = st.columns(
+        [2, 1]
+    )
+
+
+    with left_status:
+
+        st.success(
+            """
+            **🚀 AirlineIQ Production Status**
+
+            Model ✓  
+            Preprocessor ✓  
+            Feature Metadata ✓  
+            Explainability ✓  
+            Streamlit ✓
+            """
+        )
+
+
+    with right_status:
+
+        st.metric(
+            "Platform",
+            "AirlineIQ"
+        )
+
+        st.caption(
+            "Passenger Satisfaction Intelligence"
+        )
 
 
 #Step 15: AI Predictor Page
@@ -723,10 +949,8 @@ elif page == "🤖  AI Predictor":
         )
     )
 
-    if (
-        model is None
-        or preprocessor is None
-    ):
+
+    if model is None or preprocessor is None:
 
         st.error(
             "The ANN model or preprocessing pipeline is unavailable."
@@ -742,18 +966,15 @@ elif page == "🤖  AI Predictor":
         "Enter passenger and journey characteristics."
     )
 
-    col1, col2, col3 = st.columns(
-        3
-    )
+
+    col1, col2, col3 = st.columns(3)
+
 
     with col1:
 
         gender = st.selectbox(
             "Gender",
-            [
-                "Male",
-                "Female"
-            ]
+            ["Male", "Female"]
         )
 
         customer_type = st.selectbox(
@@ -770,6 +991,7 @@ elif page == "🤖  AI Predictor":
             max_value=85,
             value=35
         )
+
 
     with col2:
 
@@ -797,6 +1019,7 @@ elif page == "🤖  AI Predictor":
             value=1000
         )
 
+
     with col3:
 
         departure_delay = st.number_input(
@@ -817,16 +1040,16 @@ elif page == "🤖  AI Predictor":
     st.divider()
 
 
-    #Step 15.2: Service Ratings
+    #Step 15.2: Passenger Service Ratings
 
     section_header(
         "Passenger Service Ratings",
         "Use the dataset rating scale to describe the passenger experience."
     )
 
-    col1, col2, col3, col4 = st.columns(
-        4
-    )
+
+    col1, col2, col3, col4 = st.columns(4)
+
 
     with col1:
 
@@ -858,6 +1081,7 @@ elif page == "🤖  AI Predictor":
             3
         )
 
+
     with col2:
 
         food_drink = st.slider(
@@ -888,6 +1112,7 @@ elif page == "🤖  AI Predictor":
             3
         )
 
+
     with col3:
 
         onboard_service = st.slider(
@@ -917,6 +1142,7 @@ elif page == "🤖  AI Predictor":
             5,
             3
         )
+
 
     with col4:
 
@@ -952,47 +1178,26 @@ elif page == "🤖  AI Predictor":
         input_data = create_input_dataframe(
 
             gender=gender,
-
             customer_type=customer_type,
-
             age=age,
-
             travel_type=travel_type,
-
             travel_class=travel_class,
-
             flight_distance=flight_distance,
-
             wifi=wifi,
-
             departure_arrival=departure_arrival,
-
             online_booking=online_booking,
-
             gate_location=gate_location,
-
             food_drink=food_drink,
-
             online_boarding=online_boarding,
-
             seat_comfort=seat_comfort,
-
             inflight_entertainment=inflight_entertainment,
-
             onboard_service=onboard_service,
-
             leg_room=leg_room,
-
             baggage=baggage,
-
             checkin=checkin,
-
             inflight_service=inflight_service,
-
             cleanliness=cleanliness,
-
             departure_delay=departure_delay,
-
             arrival_delay=arrival_delay
         )
 
@@ -1006,17 +1211,12 @@ elif page == "🤖  AI Predictor":
                 threshold=PREDICTION_THRESHOLD
             )
 
-            prediction = result[
-                "prediction"
-            ]
 
-            probability = result[
-                "probability"
-            ]
+            prediction = result["prediction"]
 
-            confidence = result[
-                "confidence"
-            ]
+            probability = result["probability"]
+
+            confidence = result["confidence"]
 
 
             st.divider()
@@ -1027,6 +1227,7 @@ elif page == "🤖  AI Predictor":
             section_header(
                 "ANN Prediction Result"
             )
+
 
             display_prediction_result(
                 prediction=prediction,
@@ -1044,17 +1245,17 @@ elif page == "🤖  AI Predictor":
             st.divider()
 
 
-            #Step 15.5: Passenger Experience Score
+            #Step 15.5: Experience Score
 
             section_header(
                 "Passenger Experience Score"
             )
 
-            experience_score = (
-                calculate_experience_score(
-                    input_data
-                )
+
+            experience_score = calculate_experience_score(
+                input_data
             )
+
 
             display_experience_score(
                 experience_score
@@ -1070,6 +1271,7 @@ elif page == "🤖  AI Predictor":
                 "Passenger Profile"
             )
 
+
             display_passenger_profile(
                 input_data
             )
@@ -1083,6 +1285,7 @@ elif page == "🤖  AI Predictor":
             section_header(
                 "Flight Delay Analysis"
             )
+
 
             display_delay_analysis(
                 input_data
@@ -1098,11 +1301,11 @@ elif page == "🤖  AI Predictor":
                 "Service Health"
             )
 
-            service_health = (
-                calculate_service_health(
-                    input_data
-                )
+
+            service_health = calculate_service_health(
+                input_data
             )
+
 
             display_service_health(
                 service_health
@@ -1112,18 +1315,33 @@ elif page == "🤖  AI Predictor":
             st.divider()
 
 
-            #Step 15.9: Business Recommendations
+            #Step 15.9: Service Rating Summary
+
+            section_header(
+                "Service Rating Summary"
+            )
+
+
+            display_service_rating_summary(
+                input_data
+            )
+
+
+            st.divider()
+
+
+            #Step 15.10: Business Recommendations
 
             section_header(
                 "Business Recommendations"
             )
 
-            recommendations = (
-                generate_recommendations(
-                    input_data=input_data,
-                    prediction=prediction
-                )
+
+            recommendations = generate_recommendations(
+                input_data=input_data,
+                prediction=prediction
             )
+
 
             display_recommendations(
                 recommendations
@@ -1140,9 +1358,7 @@ elif page == "🤖  AI Predictor":
                 "Technical Error Details"
             ):
 
-                st.exception(
-                    error
-                )
+                st.exception(error)
 
 
 #Step 16: Experience Analyzer Page
@@ -1157,13 +1373,14 @@ elif page == "⭐  Experience Analyzer":
         )
     )
 
+
     section_header(
         "How AirlineIQ Measures Experience"
     )
 
-    col1, col2 = st.columns(
-        2
-    )
+
+    col1, col2 = st.columns(2)
+
 
     with col1:
 
@@ -1171,10 +1388,11 @@ elif page == "⭐  Experience Analyzer":
             """
             **⭐ Experience Score**
 
-            A business-oriented 0–100 score based on passenger
-            service ratings and flight delay impact.
+            A business-oriented 0–100 score based on
+            passenger service ratings and flight delay impact.
             """
         )
+
 
     with col2:
 
@@ -1195,6 +1413,7 @@ elif page == "⭐  Experience Analyzer":
     section_header(
         "Analyze a Passenger"
     )
+
 
     st.write(
         """
@@ -1226,6 +1445,7 @@ elif page == "📈  Model Performance":
         "Final model performance on the test dataset."
     )
 
+
     if evaluation_df.empty:
 
         st.warning(
@@ -1248,8 +1468,9 @@ elif page == "📈  Model Performance":
 
     section_header(
         "Threshold Analysis",
-        "Explore how different classification thresholds affect performance."
+        "Explore how classification thresholds affect performance."
     )
+
 
     if threshold_df.empty:
 
@@ -1275,6 +1496,7 @@ elif page == "📈  Model Performance":
         "ANN Optimization Experiments"
     )
 
+
     if optimization_df.empty:
 
         st.info(
@@ -1293,11 +1515,12 @@ elif page == "📈  Model Performance":
     st.divider()
 
 
-    #Step 17.4: Baseline Comparison
+    #Step 17.4: Baseline vs Optimized
 
     section_header(
         "Baseline vs Optimized Model"
     )
+
 
     if baseline_df.empty:
 
@@ -1323,10 +1546,12 @@ elif page == "📈  Model Performance":
         "ANN Model Architecture"
     )
 
+
     display_model_information(
         model_name=MODEL_NAME,
         threshold=PREDICTION_THRESHOLD
     )
+
 
     display_model_details(
         model=model
@@ -1353,6 +1578,7 @@ elif page == "🔍  Feature Intelligence":
         "Higher values indicate greater influence on model performance."
     )
 
+
     if importance_df.empty:
 
         st.warning(
@@ -1368,42 +1594,31 @@ elif page == "🔍  Feature Intelligence":
         )
 
 
-        numeric_columns = (
-            importance_df.select_dtypes(
-                include=np.number
-            ).columns
-        )
+        numeric_columns = importance_df.select_dtypes(
+            include=np.number
+        ).columns
 
 
-        if len(
-            numeric_columns
-        ) > 0:
+        if len(numeric_columns) > 0:
 
-            importance_column = (
-                numeric_columns[-1]
-            )
+            importance_column = numeric_columns[-1]
 
             try:
 
-                chart_df = (
-                    importance_df.copy()
-                )
+                chart_df = importance_df.copy()
 
-                feature_column = (
-                    chart_df.columns[0]
-                )
+                feature_column = chart_df.columns[0]
 
                 chart_df = chart_df.sort_values(
                     importance_column,
                     ascending=True
                 )
 
+
                 st.bar_chart(
                     chart_df.set_index(
                         feature_column
-                    )[
-                        importance_column
-                    ]
+                    )[importance_column]
                 )
 
             except Exception:
@@ -1419,6 +1634,7 @@ elif page == "🔍  Feature Intelligence":
     section_header(
         "Top Passenger Experience Features"
     )
+
 
     if top_features_df.empty:
 
@@ -1444,6 +1660,7 @@ elif page == "🔍  Feature Intelligence":
         "Passenger-Level Explanations"
     )
 
+
     if explanations_df.empty:
 
         st.info(
@@ -1453,9 +1670,7 @@ elif page == "🔍  Feature Intelligence":
     else:
 
         st.dataframe(
-            explanations_df.head(
-                50
-            ),
+            explanations_df.head(50),
             use_container_width=True,
             hide_index=True
         )
@@ -1474,9 +1689,12 @@ elif page == "ℹ️  About":
     )
 
 
+    #Step 19.1: Project Overview
+
     section_header(
         "Project Overview"
     )
+
 
     st.write(
         """
@@ -1494,13 +1712,15 @@ elif page == "ℹ️  About":
     st.divider()
 
 
+    #Step 19.2: Technology Stack
+
     section_header(
         "Technology Stack"
     )
 
-    col1, col2, col3 = st.columns(
-        3
-    )
+
+    col1, col2, col3 = st.columns(3)
+
 
     with col1:
 
@@ -1515,6 +1735,7 @@ elif page == "ℹ️  About":
             """
         )
 
+
     with col2:
 
         st.markdown(
@@ -1526,6 +1747,7 @@ elif page == "ℹ️  About":
             • Artificial Neural Network
             """
         )
+
 
     with col3:
 
@@ -1543,9 +1765,12 @@ elif page == "ℹ️  About":
     st.divider()
 
 
+    #Step 19.3: Project Pipeline
+
     section_header(
         "Project Pipeline"
     )
+
 
     st.code(
         """
@@ -1576,13 +1801,15 @@ Streamlit Deployment
     st.divider()
 
 
+    #Step 19.4: Prediction Configuration
+
     section_header(
         "Prediction Configuration"
     )
 
-    col1, col2, col3 = st.columns(
-        3
-    )
+
+    col1, col2, col3 = st.columns(3)
+
 
     with col1:
 
@@ -1591,12 +1818,14 @@ Streamlit Deployment
             "Optimized ANN"
         )
 
+
     with col2:
 
         st.metric(
             "Target",
             TARGET_NAME
         )
+
 
     with col3:
 
