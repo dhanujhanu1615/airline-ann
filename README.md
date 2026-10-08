@@ -86,3 +86,62 @@ Feature Explainability
 Business Insights
         ↓
 Streamlit Deployment
+
+## 📸 Application Preview
+
+### 🏠 AirlineIQ Dashboard
+
+![AirlineIQ Dashboard](docs/screenshots/dashboard.png)
+
+### 🤖 AI Passenger Satisfaction Predictor
+
+![AI Predictor](docs/screenshots/ai-predictor.png)
+
+### 📈 Model Performance
+
+![Model Performance](docs/screenshots/model-performance.png)
+
+### 🔍 Feature Intelligence
+
+![Feature Intelligence](docs/screenshots/feature-intelligence.png)
+
+## 🔎 Project Workflow
+
+```text
+Raw Passenger Data
+
+        ↓
+
+Data Understanding
+
+        ↓
+
+Exploratory Data Analysis
+
+        ↓
+
+Data Preprocessing
+
+        ↓
+
+ANN Model Development
+
+        ↓
+
+Model Evaluation
+
+        ↓
+
+Hyperparameter Optimization
+
+        ↓
+
+Feature Explainability
+
+        ↓
+
+Business Insights
+
+        ↓
+
+Streamlit Deployment
