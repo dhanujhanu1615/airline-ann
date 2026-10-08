@@ -1,0 +1,37 @@
+# Virtual environment
+.myenv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.vscode/
+
+# Large/generated model files
+*.h5
+*.keras
+
+# Dataset files
+data/raw/*.csv
+data/processed/*.npy
+data/processed/*.joblib
+
+# Generated model analysis outputs
+models/*.csv
+models/*.json
+models/evaluation/*.csv
+models/optimization/*.csv
+models/explainability/*.csv
+models/business_insights/*.csv
+models/optimization/*.json
